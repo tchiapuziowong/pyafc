@@ -42,43 +42,38 @@ def main():
 	]
 
 	switch_list = leaf_switch_list + spine_switch_list
-	fabric_name = "fabric-02"
+	fabric_name = "Fabric01"
 	vrf_name = "test_VRF"
-	ntp_name = "ntp-fabric"
+	ntp_name = "ntp-fabric01"
+	ntp_ip = "10.0.10.200"
 	dns_afc_name = "dns-fabric"
+	domain_name = "AFCLab.com"
+	name_server_list = ["10.0.10.200"]
 
 	try:
 		login_session, auth_header = session.login(base_url, username, password)
 
-		print(auth_header)
+		# print(auth_header)
 		session_dict = dict(s=login_session, url=base_url)
 
-		print("Getting fabric UUID")
-		fabric_uuid = fabric.get_fabrics_uuid(fabric_name, auth_header, **session_dict)
+		print("Getting Switch UUIDs...")
+		print(devices.get_switches_uuids(switch_list, auth_header, **session_dict))
 
-		print("Discovering Switches...")
-		devices.discover_switches(switch_list, auth_header, switch_pass, password, **session_dict)
+		print("Deleting Switches...")
+		devices.delete_switches_from_afc(switch_list, auth_header, **session_dict)
 
-		print("Adding Leaf Switches to Fabric...")
-		devices.add_switches_to_fabric(leaf_switch_list, auth_header, "leaf", fabric_uuid, **session_dict)
+		print("Deleting NTP configuration for NTP server named {}".format(ntp_name))
+		ntp.delete_ntp(ntp_name, auth_header, **session_dict)
 
-		print("Adding Spine Switches to Fabric...")
-		devices.add_switches_to_fabric(spine_switch_list, auth_header, "spine", fabric_uuid, **session_dict)
+		print("Deleting DNS configuration for DNS server named {}".format(dns_afc_name))
+		dns.delete_dns(dns_afc_name, auth_header, **session_dict)
 
-		print("Adding NTP Server(s)...")
-		ntp.create_ntp(ntp_name, [fabric_uuid], ntp_ip, auth_header, **session_dict)
+		print("Deleting Fabric named {}".format(fabric_name))
+		fabric.delete_fabric(fabric_name, auth_header, **session_dict)
 
-		print("Adding DNS Server(s)...")
-		dns.create_dns(dns_afc_name, [fabric_uuid], domain_name, name_server_list, auth_header, **session_dict)
+		print("Deleting VRF named {}".format(fabric_name))
+		vrfs.delete_vrf(vrf_name, auth_header, **session_dict)
 
-		# print("Creating VSX Pairs...")
-		# vsx.create_vsxes(fabric_uuid, auth_header, name_prefix="myVSXPair", description=None,
-		# 		 mac_range_lower="00:00:00:01:02:00", mac_range_upper="00:00:00:01:02:ff", keepalive_mode="routed",
-		# 		 keepalive_ip_pool="192.168.10.0", keepalive_ip_prefix=24, svi_vlan=200, **session_dict))
-
-		print("Creating VRF")
-		vrfs.create_vrf(vrf_name, fabric_uuid, auth_header, primary_route_target="65001:101",
-						address_family="ipv4_unicast", route_mode="both", max_routes=0, vni=5, **session_dict)
 
 	except Exception as error:
 		print('Ran into exception: {}. Logging out...'.format(error))
