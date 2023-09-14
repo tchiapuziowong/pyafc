@@ -1,0 +1,65 @@
+{
+	"afc_ip":"15.129.80.139",
+	"username":"admin",
+	"password":"HPNetworking!",
+	"switch_pass": "admin",
+	"leaf_switch_list": ["10.6.6.9"],
+	"spine_switch_list": [
+		"10.6.6.11",
+		"10.6.6.12"
+	],
+	"fabric_name": "fabric01",
+	"ntp_name": "ntp-fabric",
+	"ntp_ip": "10.0.0.200",
+	"dns_afc_name": "dns-fabric",
+	"domain_name": "AFCLab.com",
+	"name_server_list": ["10.80.2.219"],
+	"automatic_evpn_list": [
+		"Zone1-Rack1-Leaf1a-2",
+		"Zone1-Rack1-Leaf1b-2"
+	],
+	"new_leaf_switch_list": ["10.6.6.10"],
+	"leaf_spine_config": {
+		"name_prefix": "MyLeafSpine",
+		"description": "MyLeafSpine"
+	},
+	"underlay_config": {
+		"vrf_default_name": "default",
+		"underlay_type": "OSPF",
+		"name": "MyUnderlay",
+		"description": "description",
+		"ipv4_address": "192.168.11.0",
+		"ipv4_prefix_length": 24,
+		"transit_vlan": 2
+	},
+	"ovrerlay_config": {
+		"bgp_type": "internal",
+		"name": "MyOverlay",
+		"description": "description",
+		"spine_leaf_asn": "65101",
+		"ipv4_address": "192.168.12.0",
+		"ipv4_prefix_length": 24
+	},
+	"evpn_config": {
+		"evpn_prefix": "evpn01",
+		"mac_range_lower": "00:00:00:01:03:00",
+		"mac_range_upper": "00:00:00:01:03:ff",
+		"vlans": "1, 2, 4",
+		"description": "L2 VPN 01",
+		"rt_type": "AUTO",
+		"administrative_num": 1000,
+		"vni": 1
+	},
+	"vrf_ip_interface_config": {
+		"vrf_name": "test_VRF",
+		"name": "myVrfIPInterface",
+		"active_gateway_ipv4_address": "192.168.13.10",
+		"active_gateway_mac_address": "00:00:00:00:00:01",
+		"ipv4_primary_addres_address": "192.168.13.100",
+		"ipv4_primary_address_prefix_length": 24,
+		"if_type": "vlan",
+		"description": "VRF_IP",
+		"vlan": 1,
+		"ipv4_secondary_address": []
+	}
+}

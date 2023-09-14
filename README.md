@@ -39,3 +39,9 @@ This repo adheres to the 'shared repo' git workflow:
 1. If you encounter module import errors, make sure that the package has been installed correctly.
 
 Additionally, please read the RELEASE-NOTES.md file for the current release information and known issues.
+
+
+## How to run workflow 
+$ python3 wf01_setup_fabric_discover_devices.py input.json
+$ python3 wf02_expand_fabric.py input.json 
+$ python3 wf09_delete_fabric_and_all_configurations.py input.json

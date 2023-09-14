@@ -39,9 +39,19 @@ def get_evpn(evpn_name, auth_header, **kwargs):
 		return output['result']
 
 
-def create_evpn(name_prefix, fabric_uuid, auth_header, switch_uuids=[], mac_range_lower="00:00:00:01:02:00",
-				mac_range_upper="00:00:00:01:02:ff", vlans="5, 20-50, 70", description="L2 VPN 01",
-				rt_type="ASN:NN", administrative_num=1000, vni=1, **kwargs):
+def create_evpn(
+		name_prefix,
+		fabric_uuid,
+		auth_header,
+		switch_uuids=[],
+		mac_range_lower="00:00:00:01:02:00",
+		mac_range_upper="00:00:00:01:02:ff",
+		vlans="5, 20-50, 70",
+		description="L2 VPN 01",
+		rt_type="ASN:NN",
+		administrative_number=1000,
+		vni=1, **kwargs
+):
 	target_url = kwargs["url"] + "evpn"
 	# print("Target_url: " + target_url)
 
@@ -57,10 +67,11 @@ def create_evpn(name_prefix, fabric_uuid, auth_header, switch_uuids=[], mac_rang
 			"upper": mac_range_upper
 		},
 		"rt_type": rt_type,
-		"administrative_number": administrative_num
+		# "administrative_number": administrative_number
 	}
 
-	# post_data = json.dumps(data, sort_keys=True, indent=4)
+	if rt_type not in "AUTO":
+		data['administrative_number'] = administrative_number
 
 	response = kwargs["s"].post(target_url, json=data, headers=auth_header, verify=False)
 	if response.status_code not in [200]:
@@ -69,7 +80,7 @@ def create_evpn(name_prefix, fabric_uuid, auth_header, switch_uuids=[], mac_rang
 	else:
 		logging.info("SUCCESS: create_evpn succeeded")
 		output = response.json()
-		return output
+		return output['result']
 
 
 def delete_evpn(evpn_name, auth_header, **kwargs):

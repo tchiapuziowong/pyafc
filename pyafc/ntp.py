@@ -22,6 +22,7 @@ def get_all_ntps(auth_header, **kwargs):
 	else:
 		logging.info("SUCCESS: get_all_ntps succeeded")
 		output = response.json()
+		print(output)
 		return output['result']
 
 
@@ -70,7 +71,7 @@ def create_ntp(ntp_name, fabric_uuid_list, server_ip, auth_header, switch_uuids=
 
 def delete_ntp(ntp_name, auth_header, **kwargs):
 	uuid = get_ntps_uuid(ntp_name, auth_header, **kwargs)
-
+	print(f"UUID: {uuid}")
 	target_url = kwargs["url"] + "ntp_client_configurations/{}".format(uuid)
 	# print("Target_url: " + target_url)
 	response = kwargs["s"].delete(target_url, headers=auth_header, verify=False)
@@ -85,6 +86,7 @@ def delete_ntp(ntp_name, auth_header, **kwargs):
 
 def get_ntps_uuid(ntp_name, auth_header, **kwargs):
 	ntp_dict = get_all_ntps(auth_header, **kwargs)
+	print(ntp_dict)
 	uuid = ""
 	for ntp in ntp_dict:
 		if ntp["name"].casefold() == ntp_name.casefold():
