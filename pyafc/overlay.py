@@ -11,20 +11,6 @@ import json
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logging.basicConfig(level=logging.INFO)
 
-
-# def get_vsx(auth_header, **kwargs):
-# 	target_url = kwargs["url"] + "fabrics'vsx"
-# 	# print("Target_url: " + target_url)
-# 	response = kwargs["s"].get(target_url, headers=auth_header, verify=False)
-# 	if response.status_code not in [200]:
-# 		logging.warning("FAIL: get_vsx failed with status code %d: %s" % (response.status_code, response.text))
-# 		exit(-1)
-# 	else:
-# 		logging.info("SUCCESS: get_vsx succeeded")
-# 		output = response.json()
-# 		return output['result']
-
-
 def create_overlay(vrf_uuid,
 					auth_header,
 					name="MyUnderlay",
@@ -78,36 +64,3 @@ def create_overlay(vrf_uuid,
 		logging.info("SUCCESS: create_overlay succeeded")
 		output = response.json()
 		return output['result']
-#
-#
-# def delete_all_vsx_pairs(auth_header, **kwargs):
-# 	target_url = kwargs["url"] + "fabrics/vsx"
-# 	# print("Target_url: " + target_url)
-# 	response = kwargs["s"].delete(target_url, headers=auth_header, verify=False)
-# 	if response.status_code not in [200]:
-# 		logging.warning("FAIL: delete_all_vsx_pairs failed with status code %d: %s" % (response.status_code, response.text))
-# 		exit(-1)
-# 	else:
-# 		logging.info("SUCCESS: delete_all_vsx_pairs succeeded")
-# 		output = response.json()
-# 		return output
-#
-# def get_all(fabric_uuid, auth_header, **kwargs):
-# 	target_url = kwargs["url"] + f"fabrics/{fabric_uuid}/vsx"
-# 	# print("Target_url: " + target_url)
-# 	response = kwargs["s"].get(target_url, headers=auth_header, verify=False)
-# 	if response.status_code not in [200]:
-# 		logging.warning("FAIL: get_all_fabrics failed with status code %d: %s" % (response.status_code, response.text))
-# 		exit(-1)
-# 	else:
-# 		logging.info("SUCCESS: get_all VSX succeeded")
-# 		output = response.json()
-# 		return output['result']
-#
-# def get_uuid(fabric_uuid, vsx_name,auth_header, **kwargs):
-# 	vsx_list = get_all(fabric_uuid, auth_header, **kwargs)
-# 	uuid = ""
-# 	for vsx in vsx_list:
-# 		if vsx["name"].casefold() == vsx_name.casefold():
-# 			uuid = vsx["uuid"]
-# 	return uuid

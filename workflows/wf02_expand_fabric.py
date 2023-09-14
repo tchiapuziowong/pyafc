@@ -147,8 +147,6 @@ def main():
 			**session_dict)
 		print(f"EVPN status per switch: {evpn_result}")
 
-		#EVPN config. Set IP interface
-
 		print("Create VRF IP Interfaces...")
 		leaf_switch_dict = devices.get_switches_uuids(leaf_switch_list, auth_header, **session_dict)
 		leaf_switch_uuid_list = []
@@ -171,12 +169,6 @@ def main():
 			ipv4_secondary_address = data["vrf_ip_interface_config"]["ipv4_secondary_address"],
 			**session_dict)
 		print(f"VRF IP interface create result is: {create_vrf_ip_interface_result}")
-
-		# print("Delete all VRF IP Interfaces...")
-		# delete_vrf_ip_interface_result = vrfs.delete_all_ip_interfaces(vrf_name, auth_header, **session_dict)
-		# print(f"VRF IP interface delete result is: {delete_vrf_ip_interface_result}")
-		#
-
 
 	except Exception as error:
 		print('Ran into exception: {}. Logging out...'.format(error))
