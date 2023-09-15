@@ -1,24 +1,18 @@
 {
-	"afc_ip":"15.129.80.139",
-	"username":"admin",
-	"password":"HPNetworking!",
-	"switch_pass": "admin",
-	"leaf_switch_list": ["10.6.6.9"],
-	"spine_switch_list": [
-		"10.6.6.11",
-		"10.6.6.12"
-	],
-	"fabric_name": "fabric01",
+	"afc_ip":"1.2.3.4",
+	"username":"user",
+	"password":"password",
+	"switch_pass": "switchPassword",
+	"leaf_switch_list": ["10.2.2.3"],
+	"spine_switch_list": ["10.2.2.5", "10.2.2.6"],
+	"fabric_name": "fabric-name",
 	"ntp_name": "ntp-fabric",
-	"ntp_ip": "10.0.0.200",
-	"dns_afc_name": "dns-fabric",
-	"domain_name": "AFCLab.com",
-	"name_server_list": ["10.80.2.219"],
-	"automatic_evpn_list": [
-		"Zone1-Rack1-Leaf1a-2",
-		"Zone1-Rack1-Leaf1b-2"
-	],
-	"new_leaf_switch_list": ["10.6.6.10"],
+	"ntp_ip": "10.0.0.100",
+	"dns_afc_name": "dns-afc-name",
+	"domain_name": "A.com",
+	"name_server_list": ["11.22.33.44"],
+	"automatic_evpn_list": [],
+	"new_leaf_switch_list": ["10.2.2.4"],
 	"leaf_spine_config": {
 		"name_prefix": "MyLeafSpine",
 		"description": "MyLeafSpine"
