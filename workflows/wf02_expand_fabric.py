@@ -6,7 +6,7 @@ import os
 import sys
 import logging
 import json
-sys.path.append('../') # Needed to run workfile directly form this repository
+sys.path.append('../') # Needed to run workflow directly from this repository
 import pyafc.session as session
 import pyafc.devices as devices
 import pyafc.fabric as fabric
@@ -63,9 +63,9 @@ def main():
 		devices.add_switches_to_fabric(new_leaf_switch_list, auth_header, "leaf", fabric_uuid, **session_dict)
 
 		time.sleep(60) # Wait for VSX pair to appear. Will use netter way for pair to be available
-		print("Cleaning up All VSX Pairs...")
-		vsx.delete_all_vsx_pairs(fabric_name, auth_header, **session_dict)
-		time.sleep(60) # Wait for VSX pair to appear. Will use netter way for pair to be available
+		# print("Cleaning up All VSX Pairs...")
+		# vsx.delete_all_vsx_pairs(fabric_name, auth_header, **session_dict)
+		# time.sleep(60) # Wait for VSX pair to appear. Will use netter way for pair to be available
 
 		print("Create VSX...")
 		vsx_ids = vsx.create_vsxes(fabric_uuid, auth_header, **session_dict)
