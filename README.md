@@ -42,6 +42,12 @@ Additionally, please read the RELEASE-NOTES.md file for the current release info
 
 
 ## How to run workflow 
-$ python3 wf01_setup_fabric_discover_devices.py input.json
-$ python3 wf02_expand_fabric.py input.json 
-$ python3 wf09_delete_fabric_and_all_configurations.py input.json
+pip install -r requirements.txt
+
+1. $ python3 wf01_setup_fabric_discover_devices.py input.json
+2. $ python3 wf02_expand_fabric.py input.json
+3. $ python3 wf09_delete_fabric_and_all_configurations.py input.json
+4. $ python3 wf03_micro_segmentation.py input-micro-segmentation.json
+5. $ python3 wf04_micro_segmentation_validation.py input-micro-segmentation.json
+6. $ python3 wf08_cleanup_micro_segmentation.py input-micro-segmentation.json
+3. $ python3 wf09_delete_fabric_and_all_configurations.py input.json

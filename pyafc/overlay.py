@@ -11,16 +11,17 @@ import json
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logging.basicConfig(level=logging.INFO)
 
-def create_overlay(vrf_uuid,
-					auth_header,
-					name="MyUnderlay",
-					description=None,
-				    bgp_type="internal",
-				    spine_ids=[ "cce09ea3-8079-4813-b8d2-8826df8fefd8","d3cb8e4c-da44-4858-8846-f97bf792509c"],
-					spine_leaf_asn="65101",
-					ipv4_address="192.168.12.0",
-					ipv4_prefix_length=24,
-					**kwargs):
+def create_overlay(
+		vrf_uuid,
+		auth_header,
+		name="MyUnderlay",
+		description=None,
+		bgp_type="internal",
+		spine_ids=[ "cce09ea3-8079-4813-b8d2-8826df8fefd8","d3cb8e4c-da44-4858-8846-f97bf792509c"],
+		spine_leaf_asn="65101",
+		ipv4_address="192.168.12.0",
+		ipv4_prefix_length=24,
+		**kwargs):
 	target_url = kwargs["url"] + f"vrfs/{vrf_uuid}/overlay"
 	print("Target_url: " + target_url)
 

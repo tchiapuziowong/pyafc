@@ -2,11 +2,7 @@
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import urllib3
-import requests
-import os
-import sys
 import logging
-import json
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logging.basicConfig(level=logging.INFO)
@@ -14,8 +10,6 @@ logging.basicConfig(level=logging.INFO)
 
 def discover_switches(switch_list, auth_header, admin_pwd="admin", afc_admin_pwd="admin", switch_types=["Aruba"], **kwargs):
 	target_url = kwargs["url"] + "switches/discover"
-	# print("Target_url: " + target_url)
-
 	data = {
 		"switches": switch_list,
 		"admin_passwd": admin_pwd,
@@ -23,8 +17,6 @@ def discover_switches(switch_list, auth_header, admin_pwd="admin", afc_admin_pwd
 	}
 	if switch_types:
 		data['switch_types'] = switch_types
-
-	# post_data = json.dumps(data, sort_keys=True, indent=4)
 
 	response = kwargs["s"].post(target_url, json=data, headers=auth_header, verify=False)
 	if response.status_code not in [200]:
@@ -47,7 +39,6 @@ def add_switches_to_fabric(switch_list, auth_header, role, fabric_uuid, **kwargs
 				print("Adding {} to fabric.".format(switch['ip_address']))
 
 	target_url = kwargs["url"] + "switches"
-	# print("Target_url: " + target_url)
 	print("UUID LIST:============")
 	print(specific_switch_uuids)
 	patch_data = [
@@ -80,8 +71,6 @@ def add_switches_to_fabric(switch_list, auth_header, role, fabric_uuid, **kwargs
 
 def delete_switches_from_afc(switch_list, auth_header,  **kwargs):
 	target_url = kwargs["url"] + "switches/"
-	# print("Target_url: " + target_url)
-
 	uuid_dict = get_switches_uuids(switch_list, auth_header, **kwargs)
 	output = {}
 	for switch in uuid_dict:
@@ -101,7 +90,6 @@ def delete_switches_from_afc(switch_list, auth_header,  **kwargs):
 
 def get_all_switches(auth_header, **kwargs):
 	target_url = kwargs["url"] + "switches"
-	# print("Target_url: " + target_url)
 	response = kwargs["s"].get(target_url, headers=auth_header, verify=False)
 	if response.status_code not in [200]:
 		logging.warning("FAIL: get_all_switches failed with status code %d: %s" % (response.status_code, response.text))
@@ -115,17 +103,17 @@ def get_all_switches(auth_header, **kwargs):
 def get_switches_uuids(ip_list, auth_header, **kwargs):
 	uuid_dict = {}
 	target_url = kwargs["url"] + "switches"
-	# print("Target_url: " + target_url)
 	response = kwargs["s"].get(target_url, headers=auth_header, verify=False)
 	if response.status_code not in [200]:
 		logging.warning("FAIL: get_switches_uuids failed with status code %d: %s" % (response.status_code, response.text))
 		exit(-1)
 	else:
 		output = response.json()
+		# print(f"switch uuids: {output['result']}")
 		for switch in output['result']:
 			if switch['ip_address'] in ip_list:
 				uuid_dict[switch['ip_address']] = switch['uuid']
-		# print("UUID Dictionary: ")
-		# print(uuid_dict)
+			if 'hostname' in switch and switch['hostname'] in ip_list:
+				uuid_dict[switch['hostname']] = switch['uuid']
 		logging.info("SUCCESS: get_switches_uuids succeeded")
 		return uuid_dict

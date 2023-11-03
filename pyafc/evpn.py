@@ -50,8 +50,7 @@ def create_evpn(
 		description="L2 VPN 01",
 		rt_type="ASN:NN",
 		administrative_number=1000,
-		vni=1, **kwargs
-):
+		vni=1, **kwargs):
 	target_url = kwargs["url"] + "evpn"
 	# print("Target_url: " + target_url)
 

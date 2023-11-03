@@ -55,8 +55,6 @@ def create_dns(dns_afc_name, fabric_uuid_list, domain_name, name_server_list, au
 		"switch_uuids": switch_uuids
 	}
 
-	# post_data = json.dumps(data, sort_keys=True, indent=4)
-
 	response = kwargs["s"].post(target_url, json=data, headers=auth_header, verify=False)
 	if response.status_code not in [200]:
 		logging.warning("FAIL: create_dns failed with status code %d: %s" % (response.status_code, response.text))
@@ -71,7 +69,6 @@ def delete_dns(dns_name, auth_header, **kwargs):
 	uuid = get_dns_uuid(dns_name, auth_header, **kwargs)
 
 	target_url = kwargs["url"] + "dns_client_configurations/{}".format(uuid)
-	# print("Target_url: " + target_url)
 	response = kwargs["s"].delete(target_url, headers=auth_header, verify=False)
 	if response.status_code not in [200]:
 		logging.warning("FAIL: delete_dns failed with status code %d: %s" % (response.status_code, response.text))

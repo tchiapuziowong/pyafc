@@ -1,0 +1,145 @@
+{
+	"afc_ip":"afcxxx.mylab.com",
+	"username":"user",
+	"password":"pwd",
+	"switch_pass": "SwitchPass",
+	"fabric_name": "Fabric00",
+	"segmentation_config": {
+		"vrf_ip_interface_config": {
+			"vrf_name": "my_VRF",
+			"name": "VRFIPInterfaceVLAN1202",
+			"active_gateway_ipv4_address": "10.20.30.22",
+			"active_gateway_mac_address": "00:00:00:33:00:00",
+			"ipv4_primary_addres_address": "10.20.30.1",
+			"ipv4_primary_address_prefix_length": 24,
+			"if_type": "vlan",
+			"description": "VRF_IP",
+			"vlan": 1203,
+			"switches": ["sw-02"],
+			"ipv4_secondary_address": []
+		},
+		"lags": [],
+		"vcenter": {
+		   "name":"my vc name",
+		   "host":"vchost.mylab.com",
+		   "username":"vsphere.local\\admin",
+		   "password":"vcpassword",
+		   "description":"",
+		   "enabled":true,
+		   "verify_ssl":false,
+		   "auto_discovery":true,
+		   "vlan_provisioning":true,
+		   "pvlan_provisioning":true,
+		   "downlink_vlan_range":"1-4094",
+		   "vlan_range":"1-4094",
+		   "pvlan_range":"1-4094",
+		   "use_cdp":false,
+		   "downlink_vlan_provisioning":false,
+		   "storage_optimization":false,
+		   "endpoint_group_provisioning":true
+		},
+		"segmentation_switch": ["sw-02"],
+		"segmentation_switch_port": ["1/1/1"],
+		"vsphere": {
+			"user_name": "Admin@VSPHERE.LOCAL"
+		},
+		"test_vms": [
+			{
+				"name": "Test-VM2",
+				"username": "root",
+				"password": "Vm2Password",
+				"ip": "10.144.17.223",
+				"ip_assigned": "10.20.30.11"
+			},
+			{
+				"name": "Test-VM1",
+				"username": "root",
+				"password": "VM1Password",
+				"ip": "10.144.17.17",
+				"ip_assigned": "10.20.30.12"
+			}
+
+		],
+		"distributed_virtual_switch_name": "pri1203iso2203",
+		"host": "01-esxi.mylab.com",
+		"vm_nics": ["nic1"],
+		"portgroup_name_prefix":"portgroup",
+		"primary_vlan": "1203",
+		"primary_vlan_vnics": [],
+		"isolated_vlan": "2203",
+		"isolated_vlan_vnics": [],
+		"vrf_name": "My VRF",
+		"policy": {
+			"policy": {
+			   "name":"BlockSSH",
+			   "description":"",
+			   "policy_subtype":"firewall",
+			   "priority":1,
+			   "rules":[
+				  "BlockSSH",
+				  "AllowAll"
+			   ],
+			   "enforcers":[
+				  {
+					 "enforcer_type":"network",
+					 "direction":"egress",
+					 "uuid":"DO NOT FILL, IT WILL BE AUTO FILLED"
+				  }
+			   ],
+			   "object_type":"policy"
+			},
+			"endpoint_group": {
+			   "name":"Network1203",
+			   "description":"",
+			   "type":"layer3",
+			   "sub_type":"ip_address",
+			   "endpoints":[
+				  {
+					 "ipv4_range":"10.20.30.0/24",
+					 "type":"endpoint_group_endpoint_ip"
+				  }
+			   ]
+			},
+			"rules": [{
+			   "name":"BlockSSH",
+			   "description":"",
+			   "type":"layer3",
+			   "action":"drop",
+			   "source_endpoint_groups":[
+				  "Network1203"
+			   ],
+			   "destination_endpoint_groups":[
+				  "Network1203"
+			   ],
+			   "service_qualifiers":[
+
+			   ],
+			   "applications":[
+				 "SSH"
+			   ]
+			}, {
+			   "name":"AllowAll",
+			   "description":"",
+			   "type":"layer3",
+			   "action":"allow",
+			   "source_endpoint_groups":[
+
+			   ],
+			   "destination_endpoint_groups":[
+
+			   ],
+			   "service_qualifiers":[
+
+			   ],
+			   "applications":[
+
+			   ]
+			}
+			]
+		},
+		"vrf_network": {
+			"name": "Network1203",
+			"vlan_id": "1203"
+		}
+	}
+}

@@ -24,6 +24,7 @@ import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logging.basicConfig(level=logging.INFO)
 
+FAILCHECK
 
 def main():
 	# Take input from JSON file
